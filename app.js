@@ -8,8 +8,8 @@ const morgan = require("morgan")
 const dayjs = require("dayjs")
 const process = require("process")
 
-const driversPath = "./assets/drivers.json"
-const statsPath = "./assets/stats.json"
+const driversPath = "/var/lib/stewardle/drivers.json"
+const statsPath = "/var/lib/stewardle/stats.json"
 
 const flag = {
     "British": "gb",
@@ -331,13 +331,13 @@ async function updateDrivers() {
     }
     drivers = newDrivers
 
-    if (fs.existsSync("assets/drivers.json")) {
+    if (fs.existsSync(driversPath)) {
         console.log("Deleting drivers.json...")
-        fs.unlinkSync("assets/drivers.json")
+        fs.unlinkSync(driversPath)
     }
 
     console.log(`Writing ${_.keys(drivers).length} Drivers to drivers.json...`)
-    fs.writeFileSync("assets/drivers.json", JSON.stringify(drivers), (error) => {
+    fs.writeFileSync(driversPath, JSON.stringify(drivers), (error) => {
         if (error) throw error
     })
 }
